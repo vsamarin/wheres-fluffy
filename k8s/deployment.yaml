@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wheres-fluffy-deployment
+  namespace: vsamarin
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: wheres-fluffy-application
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: wheres-fluffy-application
+    spec:
+      containers:
+        - name: wheres-fluffy
+          image: vsamarin/where-is-fluffy:1.0.0
+          ports:
+            - name: web
+              containerPort: 8000
