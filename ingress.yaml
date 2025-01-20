@@ -2,22 +2,18 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: wheres-fluffy-ingress
-  namespace: vsamarin
   annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/x-forwarded-prefix: /wheres-fluffy-service
 spec:
   ingressClassName: nginx
   rules:
-    - host: arch.homework
-      http:
+    - http:
         paths:
-          - pathType: Prefix
+          - path: /
+            pathType: Prefix
             backend:
               service:
                 name: wheres-fluffy-service
                 port:
-                  number: 8080
-            path: /
+                  number: 80
